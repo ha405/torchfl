@@ -4,21 +4,6 @@ A clean, extensible federated learning framework built for PyTorch research.
 
 ---
 
-## Features
-
-- **GPU-resident training** - data pre-loaded to device, per-client CUDA streams, on-device aggregation
-- **4 datasets** - MNIST, FashionMNIST, CIFAR10, CIFAR100
-- **5 models** - SimpleCNN, LeNet5, ResNet, MobileNetV2, TwoNN
-- **Non-IID partitioning** - IID or Dirichlet with configurable alpha
-- **Partial participation** - `fraction_fit` controls clients selected per round
-- **Sparse training** - annealed magnitude pruning with dead filter revival
-- **Gradient clipping**, **early stopping**, **best model tracking**
-- **Auto-generated figures** - training curves, per-client accuracy, data distribution, per-class accuracy heatmap
-- **Metrics** - `metrics.json`, `metrics.csv`, `run_info.json` written per experiment
-- YAML config with inline comments; all fields also overridable via CLI
-
----
-
 ## Installation
 
 ```bash
@@ -132,38 +117,3 @@ torchfl pre-loads all training data and the full test set to the GPU at startup,
 
 If GPU memory is a hard constraint, set `device: cpu` — training is slower but memory is not a bottleneck.
 
----
-
-## Project Structure
-
-```
-torchfl/
-  main.py            training entry point
-  run_suite.py       batch experiment runner
-  plot.py            standalone figure generator
-  config.yaml        config template
-  models/
-    __init__.py      get_model() factory and registry
-    simple_cnn.py
-    lenet5.py
-    mobilenetv2.py
-    twonn.py
-    resnet.py
-  datasets/
-    __init__.py      registry and partition/dataloader utilities
-    mnist.py
-    fashionmnist.py
-    cifar10.py
-    cifar100.py
-  engine/
-    config.py        ExperimentConfig dataclass
-    scheduler.py     LR scheduler implementations
-    data_cache.py    GPU-resident evaluation cache
-    pruning.py       sparse training (magnitude pruning)
-    metrics.py       MetricsTracker and RunInfo
-    utils.py         evaluation and checkpointing
-    visualization.py figure generation
-  federated/
-    client.py        FederatedClient - local training
-    server.py        FederatedServer - orchestration and aggregation
-```
