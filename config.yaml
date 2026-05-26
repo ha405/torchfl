@@ -1,0 +1,73 @@
+# FastFL configuration
+# Usage: python main.py --config_file config.yaml
+
+device: cuda
+seed: 42
+output_dir: ./results/my_experiment
+num_workers: 0
+
+# options: MNIST | FashionMNIST | CIFAR10 | CIFAR100
+dataset_name: CIFAR10
+data_root: ./data
+num_classes: 10
+batch_size: 256
+
+# options: SimpleCNN | LeNet5 | ResNet | MobileNetV2 | TwoNN
+# conv_channels is used by SimpleCNN; hidden_size by TwoNN
+model_name: SimpleCNN
+conv_channels: [64, 128, 256]
+hidden_size: 200
+
+num_clients: 10
+num_rounds: 100
+local_epochs: 5
+# fraction_fit < 1.0 enables partial participation (e.g. 0.5 = 50% of clients/round)
+fraction_fit: 1.0
+min_fit_clients: 1
+
+# options: iid | dirichlet
+# dirichlet_alpha: lower = more heterogeneous. Typical: 0.05 (extreme), 0.1, 0.5 (mild)
+partition_method: iid
+dirichlet_alpha: 0.5
+
+# options: fedavg | fedprox | fednova | scaffold
+# fedprox_mu: proximal term weight. Typical: 0.001–0.1
+fl_algorithm: fedavg
+fedprox_mu: 0.01
+
+# options: adam | adamw | sgd
+# grad_clip: max gradient norm — set to null to disable
+optimizer: adam
+learning_rate: 0.001
+momentum: 0.9
+weight_decay: 0.0
+grad_clip: null
+
+# options: constant | cosine | step | warmup_cosine | exponential | polynomial
+# lr_min: decay floor
+# lr_warmup_rounds: warmup length for warmup_cosine
+# lr_step_size + lr_gamma: step scheduler
+# lr_gamma: exponential decay factor
+# lr_power: polynomial decay exponent
+lr_scheduler: constant
+lr_min: 0.0
+lr_warmup_rounds: 0
+lr_step_size: 20
+lr_gamma: 0.5
+lr_power: 1.0
+
+# options: dense | sparse
+# target_sparsity: fraction of weights zeroed (0.99 = 99% sparse)
+# sparsity is annealed over the first 50% of training steps
+train_mode: dense
+target_sparsity: 0.99
+
+# early_stopping_patience: rounds without improvement before stopping
+early_stopping: false
+early_stopping_patience: 10
+early_stopping_min_delta: 0.001
+
+save_best_model: true
+checkpoint_every: 10  # 0 to disable
+
+resume: false

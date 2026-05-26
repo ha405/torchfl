@@ -1,0 +1,47 @@
+# local tooling
+.claude/
+
+# data downloads
+/data/
+
+# experiment outputs
+/results/
+/scratch/
+/exps/
+
+# model weights and artifacts
+*.pt
+*.pth
+*.ckpt
+*.h5
+*.onnx
+*.npz
+*.npy
+
+# python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.cache/
+
+# environment
+.env
+.venv
+venv/
+
+# os / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z
+
+# logs
+*.log
